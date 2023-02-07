@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:flutter_ecommerce_ui/screens/signup_screen/signup_screen.dart';
 
 import '../constant.dart';
 import '../size_config.dart';
@@ -7,11 +8,9 @@ class NonActionText extends StatelessWidget {
   const NonActionText({
     Key? key,
     required this.text,
-    required this.press,
   }) : super(key: key);
 
   final String text;
-  final Function() press;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class NonActionText extends StatelessWidget {
           style: TextStyle(fontSize: getProportionateScreenWidth(16)),
         ),
         GestureDetector(
-          onTap: press,
+          onTap: () => Navigator.pushNamed(context, SignupScreen.routeName),
           child: Text(
             text,
             style: TextStyle(

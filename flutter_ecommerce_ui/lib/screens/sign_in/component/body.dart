@@ -61,7 +61,6 @@ class Body extends StatelessWidget {
                 ),
                 NonActionText(
                   text: "Sign Up",
-                  press: () {},
                 ),
               ],
             ),

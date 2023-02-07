@@ -112,9 +112,8 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
             },
           ),
           SizedBox(height: SizeConfig.screenHeight! * 0.1),
-          NonActionText(
+          const NonActionText(
             text: "Sign Up",
-            press: () {},
           ),
         ],
       ),
