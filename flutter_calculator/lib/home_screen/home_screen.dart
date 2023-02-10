@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
+
+import 'button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -8,7 +11,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String exp = "";
+  String question = "";
   String ans = "";
 
   @override
@@ -16,11 +19,27 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  void equalPress() {}
+  void equalPress() {
+    String finalExpression = question;
+    finalExpression = question.replaceAll("X", "*");
+    Parser p = Parser();
+    Expression exp = p.parse(finalExpression);
+    double eval = exp.evaluate(EvaluationType.REAL, ContextModel());
+    ans = eval.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        centerTitle: true,
+        title: const Text(
+          "Calculator",
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
       backgroundColor: Colors.grey.shade700,
       body: Align(
         alignment: Alignment.bottomRight,
@@ -35,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: const TextStyle(fontSize: 36, color: Colors.white),
               ),
               Text(
-                exp == "" ? "0" : exp,
+                question == "" ? "0" : question,
                 style: const TextStyle(fontSize: 30, color: Colors.white),
               ),
               Expanded(
@@ -49,21 +68,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         CustomBtn(
                             text: "AC",
                             press: () {
-                              exp = "0";
+                              ans = "";
+                              question = "0";
                               setState(() {});
                             }),
                         CustomBtn(text: "+/-", press: () {}),
                         CustomBtn(
                             text: "%",
                             press: () {
-                              exp += "%";
+                              question += "%";
                               setState(() {});
                             }),
                         CustomBtn(
                             text: "/",
                             color: Colors.yellow,
                             press: () {
-                              exp += "/";
+                              question += "/";
                               setState(() {});
                             }),
                       ],
@@ -75,26 +95,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         CustomBtn(
                             text: "7",
                             press: () {
-                              exp += "7";
+                              question += "7";
                               setState(() {});
                             }),
                         CustomBtn(
                             text: "8",
                             press: () {
-                              exp += "8";
+                              question += "8";
                               setState(() {});
                             }),
                         CustomBtn(
                             text: "9",
                             press: () {
-                              exp += "9";
+                              question += "9";
                               setState(() {});
                             }),
                         CustomBtn(
                             text: "X",
                             color: Colors.yellow,
                             press: () {
-                              exp += "X";
+                              question += "X";
                               setState(() {});
                             }),
                       ],
@@ -106,26 +126,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         CustomBtn(
                             text: "4",
                             press: () {
-                              exp += "4";
+                              question += "4";
                               setState(() {});
                             }),
                         CustomBtn(
                             text: "5",
                             press: () {
-                              exp += "5";
+                              question += "5";
                               setState(() {});
                             }),
                         CustomBtn(
                             text: "6",
                             press: () {
-                              exp += "6";
+                              question += "6";
                               setState(() {});
                             }),
                         CustomBtn(
                             text: "-",
                             color: Colors.yellow,
                             press: () {
-                              exp += "-";
+                              question += "-";
                               setState(() {});
                             }),
                       ],
@@ -137,26 +157,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         CustomBtn(
                             text: "1",
                             press: () {
-                              exp += "1";
+                              question += "1";
                               setState(() {});
                             }),
                         CustomBtn(
                             text: "2",
                             press: () {
-                              exp += "2";
+                              question += "2";
                               setState(() {});
                             }),
                         CustomBtn(
                             text: "3",
                             press: () {
-                              exp += "3";
+                              question += "3";
                               setState(() {});
                             }),
                         CustomBtn(
                             text: "+",
                             color: Colors.yellow,
                             press: () {
-                              exp += "+";
+                              question += "+";
                               setState(() {});
                             }),
                       ],
@@ -168,23 +188,29 @@ class _HomeScreenState extends State<HomeScreen> {
                         CustomBtn(
                             text: "0",
                             press: () {
-                              exp += "0";
+                              question += "0";
                               setState(() {});
                             }),
                         CustomBtn(
                             text: ".",
                             press: () {
-                              exp += ".";
+                              question += ".";
                               setState(() {});
                             }),
                         CustomBtn(
                             text: "Del",
                             press: () {
-                              exp = exp.substring(0, exp.length - 1);
+                              question =
+                                  question.substring(0, question.length - 1);
                               setState(() {});
                             }),
                         CustomBtn(
-                            text: "=", color: Colors.yellow, press: () {}),
+                            text: "=",
+                            color: Colors.yellow,
+                            press: () {
+                              equalPress();
+                              setState(() {});
+                            }),
                       ],
                     ),
                     const SizedBox(height: 10),
@@ -192,49 +218,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class CustomBtn extends StatelessWidget {
-  const CustomBtn({
-    Key? key,
-    required this.text,
-    this.color = Colors.grey,
-    required this.press,
-  }) : super(key: key);
-
-  final String text;
-  final Color color;
-  final Function()? press;
-
-  @override
-  Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height * 1;
-    double width = MediaQuery.of(context).size.width * 1;
-
-    return InkWell(
-      radius: width * 0.1,
-      onTap: press,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 5),
-        height: height * 0.1,
-        width: width * 0.2,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: color,
-        ),
-        child: Center(
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
           ),
         ),
       ),
