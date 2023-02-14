@@ -1,20 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_app/utils/routes/routes_name.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_mvvm_app/utils/utils.dart';
-import 'package:flutter_mvvm_app/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../res/components/rounded_border_button.dart';
+import '../utils/routes/routes_name.dart';
+import '../view_model/auth_view_model.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class SignUpView extends StatefulWidget {
+  const SignUpView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<SignUpView> createState() => _SignUpViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _SignUpViewState extends State<SignUpView> {
   final ValueNotifier<bool> _obsecuredText = ValueNotifier<bool>(true);
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
@@ -37,7 +39,7 @@ class _LoginViewState extends State<LoginView> {
     final height = MediaQuery.of(context).size.height * 1;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Login"),
+        title: const Text("Sign Up"),
       ),
       body: SafeArea(
           child: Padding(
@@ -49,7 +51,7 @@ class _LoginViewState extends State<LoginView> {
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Login",
+                "Signup",
                 style: TextStyle(fontSize: 30),
               ),
             ),
@@ -93,8 +95,8 @@ class _LoginViewState extends State<LoginView> {
             ),
             SizedBox(height: height * 0.02),
             RoundedBorderButton(
-                title: "Login",
-                isLoading: authviewModel.isLoading,
+                title: "Sign Up",
+                isLoading: authviewModel.signupLoading,
                 onPress: () {
                   if (_emailController.text.isEmpty) {
                     Utils.toastMessage("Please Enter your Email Address");
@@ -108,26 +110,18 @@ class _LoginViewState extends State<LoginView> {
                       'password': _passwordController.text.toString(),
                     };
 
-                    authviewModel.loginApi(data, context);
+                    authviewModel.signupApi(data, context);
                   }
                 }),
           SizedBox(height: height * 0.02),
           InkWell(
             onTap: () {
-              Navigator.pushNamed(context, RoutesName.signup);
+              Navigator.pushNamed(context, RoutesName.login);
             },
-            child: const Text("Don't have an account! SignUp")),
+            child: const Text("Already have an account! Signin")),
           ],
         ),
       )),
     );
   }
 }
-
-
-// login password
-// {
-//     "email": "eve.holt@reqres.in",
-//     "password": "cityslicka"
-// }
-

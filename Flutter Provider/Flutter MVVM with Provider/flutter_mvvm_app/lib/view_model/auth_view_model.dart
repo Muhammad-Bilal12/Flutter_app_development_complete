@@ -8,15 +8,26 @@ import '../utils/routes/routes_name.dart';
 class AuthViewModel with ChangeNotifier {
   final _myrepo = AuthRepository();
 
+// For login api 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
-
 
   setIsLoading(bool value){
     _isLoading = value;
     notifyListeners();
   }
 
+
+// For signup api 
+  bool _signupLoading = false;
+  bool get signupLoading => _signupLoading;
+
+  setSignUpLoading(bool value){
+    _signupLoading = value;
+    notifyListeners();
+  }
+
+// Login Api Function
   Future<void> loginApi(dynamic data, BuildContext context) async {
     setIsLoading(true);
     _myrepo.loginApi(data).then((value) {
@@ -35,4 +46,28 @@ class AuthViewModel with ChangeNotifier {
       }
     });
   }
+
+
+// SignUp Api Function
+  Future<void> signupApi(dynamic data, BuildContext context) async {
+    setSignUpLoading(true);
+    _myrepo.signUpApi(data).then((value) {
+    setSignUpLoading(false);
+      Navigator.pushNamed(context, RoutesName.home);
+        Utils.toastMessage("Signup Successfully");
+      if (kDebugMode) {
+        print(value.toString());
+      }
+    }).onError((error, stackTrace) {
+      setSignUpLoading(false);
+        Utils.toastMessage(error.toString());
+      if (kDebugMode) {
+
+        print(error.toString());
+      }
+    });
+  }
+
+
+
 }
