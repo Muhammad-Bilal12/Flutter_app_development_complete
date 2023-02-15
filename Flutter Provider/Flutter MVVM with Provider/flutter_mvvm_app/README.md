@@ -1,6 +1,6 @@
 # Flutter MVVM Architecture
 
-<a href="app-release.apk" download>Download Now</a>
+<a href="https://github.com/Muhammad-Bilal12/Flutter_app_development_complete/blob/main/Flutter%20Provider/Flutter%20MVVM%20with%20Provider/flutter_mvvm_app/app-release.apk" download>Download Now</a>
 
 A new Flutter project.
 
