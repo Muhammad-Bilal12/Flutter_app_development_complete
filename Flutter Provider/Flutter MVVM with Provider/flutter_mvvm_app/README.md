@@ -1,5 +1,7 @@
 # Flutter MVVM Architecture
 
+<a href="app-release.apk" download>Download Now</a>
+
 A new Flutter project.
 
 ## Getting Started
