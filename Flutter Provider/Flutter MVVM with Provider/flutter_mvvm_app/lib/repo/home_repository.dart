@@ -9,13 +9,13 @@ class HomeRepository {
  final BaseApiRespose _apiServices = NetworkApiResponse();
 
 // hit api for getting Movies data
-  Future<MovieListModel> fetchMoviesList() async {
+  Future<dynamic> fetchMoviesList() async {
     try {
       dynamic response =
           await _apiServices.getGetApiResponse(AppUrl.movieListEndPoint);
       return response = MovieListModel.fromJson(response);
-    } catch (e) {
-    rethrow;
+    } catch(e){
+      return e;
     }
   }
 
