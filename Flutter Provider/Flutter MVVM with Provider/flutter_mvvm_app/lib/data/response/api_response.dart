@@ -10,8 +10,8 @@ String? message;
 ApiResponse(this.stauts,this.data,this.message);
 
 ApiResponse.loading() : stauts = Stauts.LOADING;
-ApiResponse.completed() : stauts = Stauts.COMPLETED;
-ApiResponse.error() : stauts = Stauts.ERROR;
+ApiResponse.completed(this.data) : stauts = Stauts.COMPLETED;
+ApiResponse.error(this.message) : stauts = Stauts.ERROR;
 
 @override
   String toString() {
