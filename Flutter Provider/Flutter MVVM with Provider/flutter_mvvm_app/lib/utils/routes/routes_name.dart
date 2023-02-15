@@ -1,6 +1,8 @@
 
 
 class RoutesName{
+// Splash Screen
+static const String  splash = "/splash_screen"; 
 
 // User Authentication Screen
 static const String  login = "/login_screen"; 
