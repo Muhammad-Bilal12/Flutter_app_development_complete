@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "263823009988",
+    "project_id": "fir-tut-7e4b4",
+    "storage_bucket": "fir-tut-7e4b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263823009988:android:f85fde8c02feea413e0191",
+        "android_client_info": {
+          "package_name": "com.mentor.firebase_tut"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263823009988-gq9bmqkjbp6orac36p6f4tgln7op82do.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMqS0SmOUrt_JIciFUGA_RNbFqgeAINjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263823009988-gq9bmqkjbp6orac36p6f4tgln7op82do.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
