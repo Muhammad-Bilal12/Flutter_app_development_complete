@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_tut/ui/auth/login_screen.dart';
+import 'package:firebase_tut/ui/post_screen/add_post_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class PostScreen extends StatefulWidget {
   const PostScreen({super.key});
@@ -13,6 +14,8 @@ class PostScreen extends StatefulWidget {
 
 class _PostScreenState extends State<PostScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final ref = FirebaseDatabase.instance.ref('posts');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +34,30 @@ class _PostScreenState extends State<PostScreen> {
               },
               icon: const Icon(Icons.logout_outlined))
         ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Column(
+          children: [
+            Expanded(
+                child: FirebaseAnimatedList(
+              query: ref,
+              itemBuilder: (context, snapshot, animation, index) {
+                return ListTile(
+                  title: Text(snapshot.child('msg').value.toString()),
+                subtitle: Text(snapshot.child('id').value.toString()),
+                );
+              },
+            )),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddPostScreen()));
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }

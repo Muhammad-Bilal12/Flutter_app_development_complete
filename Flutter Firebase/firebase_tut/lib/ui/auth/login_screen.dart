@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_tut/ui/auth/phone_number_auth_screen.dart';
 import 'package:firebase_tut/ui/auth/signup_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -109,6 +110,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (_formKey.currentState!.validate()) {
                         login();
                       }
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  RoundBtn(
+                    loading: isLoading,
+                    title: "Login with Phone",
+                    onPress: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const PhoneNumberVerificationScreen()));
                     },
                   ),
                   Row(
