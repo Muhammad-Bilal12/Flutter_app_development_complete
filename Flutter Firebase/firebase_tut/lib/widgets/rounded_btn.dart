@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class RoundBtn extends StatelessWidget {
@@ -6,8 +5,10 @@ class RoundBtn extends StatelessWidget {
     super.key,
     required this.title,
     required this.onPress,
+    this.loading = false,
   });
   final String title;
+  final bool loading;
   final Function()? onPress;
   @override
   Widget build(BuildContext context) {
@@ -21,8 +22,16 @@ class RoundBtn extends StatelessWidget {
           color: Colors.deepPurple,
         ),
         child: Center(
-          child: Text(title,
-              style: const TextStyle(fontSize: 24, color: Colors.white),textAlign: TextAlign.center,),
+          child: loading == true
+              ? CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 3,
+                )
+              : Text(
+                  title,
+                  style: const TextStyle(fontSize: 24, color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
         ),
       ),
     );

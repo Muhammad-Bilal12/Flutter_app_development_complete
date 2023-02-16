@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_tut/ui/auth/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
+import '../../utils/utils.dart';
 import '../../widgets/rounded_btn.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -13,9 +13,37 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passswordController = TextEditingController();
+
+  // Create Instance for firebase authentication
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+// Signup Function
+
+  void signup() {
+    setState(() {
+      isLoading = true;
+    });
+    _auth
+        .createUserWithEmailAndPassword(
+            email: _emailController.text.toString(),
+            password: _passswordController.text.toString())
+        .then((value) {
+      setState(() {
+        isLoading = false;
+        Utils.toastMessage("Signup successfully!");
+      });
+    }).onError((error, stackTrace) {
+      setState(() {
+        isLoading = false;
+      });
+      Utils.toastMessage(error.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,18 +95,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   const SizedBox(height: 10),
                   RoundBtn(
+                    loading: isLoading,
                     title: "Signup",
                     onPress: () {
                       if (_formKey.currentState!.validate()) {
-                        print("Signup");
+                        signup();
                       }
                     },
-                  ), Row(
+                  ),
+                  Row(
                     children: [
                       const Text("Already have an account"),
-                    TextButton(onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen(),));
-                    }, child: const Text("Login")),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                ));
+                          },
+                          child: const Text("Login")),
                     ],
                   ),
                 ],
