@@ -40,12 +40,40 @@ class _PostScreenState extends State<PostScreen> {
         child: Column(
           children: [
             Expanded(
+                child: StreamBuilder(
+              stream: ref.onValue,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return ListView.builder(
+                    itemCount: snapshot.data!.snapshot.children.length,
+                    itemBuilder: (context, index) {
+                      Map<dynamic, dynamic> map =
+                          snapshot.data!.snapshot.value as dynamic;
+                      List<dynamic> list = [];
+                      list.clear();
+                      list = map.values.toList();
+
+                      return Card(
+                          child: ListTile(
+                        title: Text(list[index]['msg'].toString()),
+                        subtitle: Text(list[index]['id'].toString()),
+                      ));
+                    },
+                  );
+                }
+              },
+            )),
+            Expanded(
                 child: FirebaseAnimatedList(
               query: ref,
               itemBuilder: (context, snapshot, animation, index) {
                 return ListTile(
                   title: Text(snapshot.child('msg').value.toString()),
-                subtitle: Text(snapshot.child('id').value.toString()),
+                  subtitle: Text(snapshot.child('id').value.toString()),
                 );
               },
             )),
