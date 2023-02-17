@@ -47,10 +47,11 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     loading = true;
                   });
                   // CALL TO SET DATA ON FIREBASE REALTIME
+                  String id = DateTime.now().millisecondsSinceEpoch.toString(); 
                   databaseRefs
-                      .child(DateTime.now().millisecondsSinceEpoch.toString())
+                      .child(id)
                       .set({
-                    'id': DateTime.now().millisecondsSinceEpoch.toString(),
+                    'id': id,
                     'msg': postController.text.toString(),
                   }).then((value) {
                     setState(() {
