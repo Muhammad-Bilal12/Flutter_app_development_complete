@@ -1,3 +1,4 @@
+import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 
@@ -15,7 +16,7 @@ class FirestoreScreen extends StatefulWidget {
 class _FirestoreScreenState extends State<FirestoreScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 // Add firestore library
-
+  final firestore = FirebaseFirestore.instance.collection('users').snapshots();
   final searchFilter = TextEditingController();
   final updateText = TextEditingController();
 
@@ -52,15 +53,27 @@ class _FirestoreScreenState extends State<FirestoreScreen> {
                 setState(() {});
               },
             ),
-            Expanded(
-              child: ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text("data"),
-                    );
-                  }),
-            )
+            StreamBuilder<QuerySnapshot>(
+              stream: firestore,
+              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child:  CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return const Center(child: Text("Something went wrong"));
+                } else {
+                  return Expanded(
+                    child: ListView.builder(
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(
+                                snapshot.data!.docs[index]['users'].toString()),
+                          );
+                        }),
+                  );
+                }
+              },
+            ),
           ],
         ),
       ),
