@@ -17,6 +17,7 @@ class _FirestoreScreenState extends State<FirestoreScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 // Add firestore library
   final firestore = FirebaseFirestore.instance.collection('users').snapshots();
+  CollectionReference ref = FirebaseFirestore.instance.collection('users');
   final searchFilter = TextEditingController();
   final updateText = TextEditingController();
 
@@ -57,7 +58,7 @@ class _FirestoreScreenState extends State<FirestoreScreen> {
               stream: firestore,
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child:  CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return const Center(child: Text("Something went wrong"));
                 } else {
@@ -68,6 +69,48 @@ class _FirestoreScreenState extends State<FirestoreScreen> {
                           return ListTile(
                             title: Text(
                                 snapshot.data!.docs[index]['users'].toString()),
+                            subtitle: Text(
+                                snapshot.data!.docs[index]['id'].toString()),
+                            trailing: PopupMenuButton(
+                              itemBuilder: (context) {
+                                return [
+                                  PopupMenuItem(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      value: 1,
+                                      child: ListTile(
+                                        onTap: () {
+                                          showMyDialog(
+                                              snapshot
+                                                  .data!.docs[index]['users']
+                                                  .toString(),
+                                              snapshot.data!.docs[index]['id']
+                                                  .toString());
+                                        },
+                                        leading: const Icon(Icons.edit),
+                                        title: const Text("Edit"),
+                                      )),
+                                  PopupMenuItem(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      value: 1,
+                                      child: ListTile(
+                                        onTap: () {
+                                            Navigator.pop(context); 
+                                          ref
+                                              .doc(snapshot
+                                                  .data!.docs[index]['id']
+                                                  .toString())
+                                              .delete();
+                                        },
+                                        leading: const Icon(Icons.delete),
+                                        title: const Text("Delete"),
+                                      )),
+                                ];
+                              },
+                            ),
                           );
                         }),
                   );
@@ -114,6 +157,13 @@ class _FirestoreScreenState extends State<FirestoreScreen> {
             TextButton(
                 onPressed: () {
                   Navigator.pop(context);
+                  ref.doc(id).update({
+                    'users': updateText.text.toString(),
+                  }).then((value) {
+                    Utils.toastMessage("update");
+                  }).onError((error, stackTrace) {
+                    Utils.toastMessage(error.toString());
+                  });
                 },
                 child: const Text("Update")),
           ],

@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowMaterialGrid: false,
       title: "Firebase tut",
       theme: ThemeData(primarySwatch: Colors.deepPurple),
       home: const SplashScreen(),
