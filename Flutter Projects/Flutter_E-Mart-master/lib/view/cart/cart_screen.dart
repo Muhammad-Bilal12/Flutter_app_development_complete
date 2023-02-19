@@ -6,7 +6,12 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-color: Colors.orange,
+      color: Colors.white,
+      child: "No Item Found!"
+          .text
+          .color(darkFontGrey)
+          .fontFamily(semibold)
+          .makeCentered(),
     );
   }
 }

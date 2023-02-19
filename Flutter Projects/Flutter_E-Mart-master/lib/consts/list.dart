@@ -11,3 +11,38 @@ const featuredImagesList2 = [imgS4, imgS5, imgS6];
 
 const featuredTitleList1 = [womenDress, girlsWatch, girlsWatch];
 const featuredTitleList2 = [accessories, mobilePhone, boyWatch];
+
+// Category List
+
+const categoryTitleList = [
+  womenDress,
+  menFashion,
+  phones,
+  jwelery,
+  glass,
+  computer,
+  sports,
+  kidsToy,
+  furniture
+];
+
+const categoryImages = [
+  imgFc1,
+  imgFc2,
+  imgFc3,
+  imgFc4,
+  imgFc5,
+  imgFc6,
+  imgFc7,
+  imgFc8,
+  imgFc9
+];
+
+const itemDetailButtonList = [videos ,
+    reviews ,
+    sellerPolicy ,
+    returnPolicy ,
+    supportPolicy];
+
+    const profileBtnTitleList = [myOrder,myWishList,myMessages];
+    const profileBtnIconList = [icOrder,icFavoriteSeller,icMessages];

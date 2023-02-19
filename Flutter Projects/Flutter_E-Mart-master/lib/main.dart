@@ -4,7 +4,6 @@ import 'package:emart_app/view/splash_screen/splash_screen.dart';
 import 'consts/consts.dart';
 import 'package:get/get.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -21,6 +20,9 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.transparent,
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          // to set appbar icon Color    
+          iconTheme: IconThemeData(color: darkFontGrey),
         ),
         fontFamily: "sans_regular",
       ),
