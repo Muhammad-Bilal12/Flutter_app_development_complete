@@ -13,6 +13,9 @@ const login = "Log in";
 const signup = "Sign up";
 const createNewAccount = "or, create a new account";
 const loginWith = "Login with";
+const signedup = "Signup Successfully";
+const loggedin = "Login Successfully";
+const loggedout = "Logout Successfully";
 
 // Signup text
 const name = "Name";
@@ -74,3 +77,7 @@ const logout = "Log out",
     myOrder = "My Order",
     myWishList = "My WishList",
     myMessages = "My messages";
+
+// Error Messages
+const nullError = "Plaese fill all Textfields", checkTerms = "please check our terms and condition";
+

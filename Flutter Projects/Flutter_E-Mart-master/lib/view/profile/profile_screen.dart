@@ -1,7 +1,10 @@
 import 'package:emart_app/consts/consts.dart';
+import 'package:emart_app/view/auth_screen/login_screen.dart';
+import 'package:get/get.dart';
 
 import '../../common_widget/bg_widget.dart';
 import '../../consts/list.dart';
+import '../../controller/auth_controller.dart';
 import 'component/detail_card.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -17,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
             // Edit profile btn
 
             Padding(
-              padding: const EdgeInsets.only(top: 8,right: 8.0),
+              padding: const EdgeInsets.only(top: 8, right: 8.0),
               child: Align(
                 alignment: Alignment.topRight,
                 child: const Icon(
@@ -55,7 +58,10 @@ class ProfileScreen extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        Get.put(AuthController()).signOutMethod();
+                        Get.offAll(const LoginScreen());
+                      },
                       child: logout.text.white.fontFamily(semibold).make()),
                 ],
               ),
@@ -104,7 +110,8 @@ class ProfileScreen extends StatelessWidget {
                 .margin(const EdgeInsets.all(10))
                 .make()
                 .box
-                .color(redColor).bottomRounded(value: 12)
+                .color(redColor)
+                .bottomRounded(value: 12)
                 .make(),
           ],
         ),
