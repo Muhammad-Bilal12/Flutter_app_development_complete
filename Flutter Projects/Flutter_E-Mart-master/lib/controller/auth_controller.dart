@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
+  var isLoading = false.obs;
 // textFeildController
   final passwordController = TextEditingController();
   final emailController = TextEditingController();
@@ -48,7 +49,11 @@ class AuthController extends GetxController {
       'name': name,
       'email': email,
       'password': password,
-      'imageUrl': ''
+      'imageUrl': '',
+      'id': currentUser!.uid,
+      'cart_count': '00',
+      'wishlist_count': '00',
+      'order_count': '00',
     }); //to store user data on firestore
   }
 

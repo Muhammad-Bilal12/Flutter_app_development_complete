@@ -77,6 +77,7 @@ const logout = "Log out",
     myOrder = "My Order",
     myWishList = "My WishList",
     myMessages = "My messages";
+    const editProfile = "Edit Profile";
 
 // Error Messages
 const nullError = "Plaese fill all Textfields", checkTerms = "please check our terms and condition";
