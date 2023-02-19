@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "690450735337",
+    "project_id": "magic-notes-001",
+    "storage_bucket": "magic-notes-001.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:690450735337:android:6be08fb63774ae70c0d078",
+        "android_client_info": {
+          "package_name": "com.example.emart_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "690450735337-2fgalm3j6stu6sgh5b2pduvmm901nlri.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCip43vGzN_OrxbLNjWwzsy5zGfK9u4ZKg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "690450735337-2fgalm3j6stu6sgh5b2pduvmm901nlri.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
