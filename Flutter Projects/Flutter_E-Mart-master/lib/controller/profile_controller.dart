@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:emart_app/consts/consts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -14,7 +15,8 @@ class ProfileController extends GetxController {
 
   // Textfeild Controller
   var nameController = TextEditingController();
-  var passwordController = TextEditingController();
+  var oldPasswordController = TextEditingController();
+  var newPasswordController = TextEditingController();
 
   changeImage(context) async {
     try {
@@ -31,19 +33,28 @@ class ProfileController extends GetxController {
   uploadImage() async {
     var filename = basename(profileImagePath.value);
     var destination = "/images/${currentUser!.uid}/$filename";
-    var ref =  FirebaseStorage.instance.ref().child(destination);
+    var ref = FirebaseStorage.instance.ref().child(destination);
     await ref.putFile(File(profileImagePath.value));
-  profileImageLink = await ref.getDownloadURL();
+    profileImageLink = await ref.getDownloadURL();
   }
 
-updateProfile({name,password,imgUrl})async {
-  var store = firestore.collection(usersCollection).doc(currentUser!.uid);
-  await store.update({
-    'name':name,
-    'password':password,
-    'imageUrl':imgUrl,
-  });
-  isLoading(false);
-}
+  updateProfile({name, password, imgUrl}) async {
+    var store = firestore.collection(usersCollection).doc(currentUser!.uid);
+    await store.update({
+      'name': name,
+      'password': password,
+      'imageUrl': imgUrl,
+    });
+    isLoading(false);
+  }
 
+// change user authentication password
+  changeAuthPassword({email, password, newPassword}) async {
+    final cred = EmailAuthProvider.credential(email: email, password: password);
+    await currentUser!.reauthenticateWithCredential(cred).then((value) {
+      currentUser!.updatePassword(newPassword);
+    }).onError((error, stackTrace) {
+      debugPrint(error.toString());
+    });
+  }
 }
